@@ -1,10 +1,13 @@
 import React from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CBadge, CRow } from '@coreui/react'
-import { DocsExample } from 'src/components'
+import { DocsCallout, DocsExample } from 'src/components'
 
 const Badges = () => {
   return (
     <CRow>
+      <CCol xs={12}>
+        <DocsCallout name="Badges" href="components/badge" />
+      </CCol>
       <CCol lg={6}>
         <CCard className="mb-4">
           <CCardHeader>
@@ -71,7 +74,9 @@ const Badges = () => {
               a badge.
             </p>
             <DocsExample href="components/badge#contextual-variations">
-              <CBadge color="primary">primary</CBadge>
+              <CBadge color="primary" textColor="high-emphasis">
+                primary
+              </CBadge>
               <CBadge color="success">success</CBadge>
               <CBadge color="danger">danger</CBadge>
               <CBadge color="warning">warning</CBadge>

@@ -12,34 +12,33 @@ import {
   CToastHeader,
   CToaster,
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
+import { DocsCallout, DocsExample } from 'src/components'
 
 const ExampleToast = () => {
   const [toast, addToast] = useState(0)
   const toaster = useRef()
   const exampleToast = (
-    <CToast title="CoreUI for React.js">
-      <CToastHeader closeButton>
-        <svg
-          className="rounded me-2"
-          width="20"
-          height="20"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice"
-          focusable="false"
-          role="img"
-        >
-          <rect width="100%" height="100%" fill="#007aff"></rect>
-        </svg>
-        <strong className="me-auto">CoreUI for React.js</strong>
-        <small>7 min ago</small>
-      </CToastHeader>
-      <CToastBody>Hello, world! This is a toast message.</CToastBody>
+    <CToast
+      autohide={false}
+      color="success"
+      className="text-white align-items-center"
+      visible={true}
+    >
+      <div className="d-flex">
+        <CToastBody>Product Successfully added to the menu</CToastBody>
+        <CToastClose className="me-2 m-auto" white />
+      </div>
     </CToast>
   )
   return (
     <>
-      <CButton onClick={() => addToast(exampleToast)}>Send a toast</CButton>
+      <CButton
+        color="secondary"
+        className="text-high-emphasis"
+        onClick={() => addToast(exampleToast)}
+      >
+        ADD PRODUCT
+      </CButton>
       <CToaster ref={toaster} push={toast} placement="top-end" />
     </>
   )
@@ -48,6 +47,9 @@ const ExampleToast = () => {
 const Toasts = () => {
   return (
     <CRow>
+      <CCol xs={12}>
+        <DocsCallout name="Toast" href="components/toast" />
+      </CCol>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>

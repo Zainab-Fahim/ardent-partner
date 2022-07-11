@@ -3,15 +3,22 @@
 // If you want to customize your project please uncomment and update one of the following variables.
 
 // Color system
-
+// #ebb58c
 // scss-docs-start gray-color-variables
 // $white:     #fff !default;
-// $gray-base: #3c4b64 !default;
-// $gray-100:  #ebedef !default;
-// $gray-200:  #d8dbe0 !default;
-// $gray-300:  #c4c9d0 !default;
-// $gray-400:  #b1b7c1 !default;
+ $gray-base: #4E4166 !default;
+ $gray-100:  #ece8f38c !default;
+ $gray-100:  #ebedef !default;
+
+ $gray-200:  #f7e7dc !default;
+ $gray-300:  #dfcdbf !default;
+ $gray-400:  #d4a47f !default;
+ 
+//  $gray-200:  #d8dbe0 !default;
+//  $gray-300:  #c4c9d0 !default;
+//  $gray-400:  #b1b7c1 !default;
 // $gray-500:  #9da5b1 !default;
+//4E4166
 // $gray-600:  #8a93a2 !default;
 // $gray-700:  #768192 !default;
 // $gray-800:  #636f83 !default;
@@ -73,35 +80,37 @@
 //   "gray-dark":  $gray-800
 // ) !default;
 // scss-docs-end colors-map
-
+// F6A970
 // fusv-disable
 // $primary-dark:  #1f1498 !default;
-// $primary-base:  #321fdb !default;
+ $primary-base:  #3E3456 !default;
 // $primary-50:    #988fed !default;
 // $primary-25:    #ccc7f6 !default;
 
 // $secondary-dark:  #212233 !default;
-// $secondary-base:  #9da5b1 !default;
-// $secondary-50:    #9da5b1 !default;
+ $secondary-base:  #ebb58c !default;
+ $secondary-50:    #ebb58c !default;
 // $secondary-25:    #ced2d8 !default;
 
+$successOp:  hsla(136, 71%, 36%, 0.185) ;
 // $success-dark:  #1b9e3e !default;
-// $success-base:  #2eb85c !default;
+ $success-base:  #1f6e3a !default;
 // $success-50:    #96dbad !default;
 // $success-25:    #cbedd6 !default;
 
 // $info-dark:  #2982cc !default;
-// $info-base:  #39f !default;
+ $info-base:  #ac6c3b !default;
 // $info-50:    #80c6ff !default;
 // $info-25:    #c0e6ff !default;
 
 // $warning-dark:  #f6960b !default;
-// $warning-base:  #f9b115 !default;
+ $warning-base:  #982b6e !default;
 // $warning-50:    #fcd88a !default;
 // $warning-25:    #feecc5 !default;
 
 // $danger-dark:  #d93737 !default;
 // $danger-base:  #e55353 !default;
+ $danger-base:  #720404 !default;
 // $danger-50:    #f2a9a9 !default;
 // $danger-25:    #f9d4d4 !default;
 
@@ -110,7 +119,7 @@
 // $light-50:       shift-color($light-base, -70) !default;
 // $light-25:       shift-color($light-base, -80) !default;
 
-// $dark-dark:      $gray-900 !default;
+//  $dark-dark:      $gray-900 !default;
 // $dark-base:      $gray-900 !default;
 // $dark-50:        shift-color($dark-base, -70) !default;
 // $dark-25:        shift-color($dark-base, -80) !default;
@@ -1490,11 +1499,13 @@
 //   "primary": list-group-color-map($primary),
 //   "secondary": list-group-color-map($secondary),
 //   "success": list-group-color-map($success),
+//   "successOp": list-group-color-map($successOp),
 //   "danger": list-group-color-map($danger),
 //   "warning": list-group-color-map($warning),
 //   "info": list-group-color-map($info),
 //   "light": list-group-color-map($light),
-//   "dark": list-group-color-map($dark)
+//   "dark": list-group-color-map($dark),
+
 // ) !default;
 // scss-docs-end list-group-variables
 

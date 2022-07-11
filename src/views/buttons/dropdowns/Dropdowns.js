@@ -13,11 +13,14 @@ import {
   CDropdownToggle,
   CRow,
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
+import { DocsCallout, DocsExample } from 'src/components'
 
 const Dropdowns = () => {
   return (
     <CRow>
+      <CCol xs={12}>
+        <DocsCallout name="Dropdown" href="components/dropdown" />
+      </CCol>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>

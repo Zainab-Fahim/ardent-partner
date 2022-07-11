@@ -19,11 +19,14 @@ import {
   CInputGroupText,
   CRow,
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
+import { DocsCallout, DocsExample } from 'src/components'
 
 const Select = () => {
   return (
     <CRow>
+      <CCol xs={12}>
+        <DocsCallout name="Input Group" href="forms/input-group" />
+      </CCol>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>

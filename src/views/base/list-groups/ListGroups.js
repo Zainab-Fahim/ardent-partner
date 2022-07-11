@@ -10,11 +10,14 @@ import {
   CListGroupItem,
   CRow,
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
+import { DocsCallout, DocsExample } from 'src/components'
 
 const ListGroups = () => {
   return (
     <CRow>
+      <CCol xs={12}>
+        <DocsCallout name="List Group" href="components/list-group" />
+      </CCol>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
@@ -96,7 +99,7 @@ const ListGroups = () => {
               s) don&#39;tprovide a click or tap affordance.
             </p>
             <DocsExample href="components/list-group/#links-and-buttons">
-              <CListGroup>
+              <CListGroup flush>
                 <CListGroupItem component="a" href="#" active>
                   Cras justo odio
                 </CListGroupItem>

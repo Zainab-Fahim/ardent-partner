@@ -1,10 +1,13 @@
 import React from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CPopover, CRow, CCol } from '@coreui/react'
-import { DocsExample } from 'src/components'
+import { DocsCallout, DocsExample } from 'src/components'
 
 const Popovers = () => {
   return (
     <CRow>
+      <CCol xs={12}>
+        <DocsCallout name="Popover" href="components/popover" />
+      </CCol>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>

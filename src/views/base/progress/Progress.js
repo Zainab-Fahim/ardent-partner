@@ -1,10 +1,13 @@
 import React from 'react'
 import { CCard, CCardBody, CCardHeader, CCol, CProgress, CProgressBar, CRow } from '@coreui/react'
-import { DocsExample } from 'src/components'
+import { DocsCallout, DocsExample } from 'src/components'
 
 const Progress = () => {
   return (
     <CRow>
+      <CCol xs={12}>
+        <DocsCallout name="Progress" href="components/progress" />
+      </CCol>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>

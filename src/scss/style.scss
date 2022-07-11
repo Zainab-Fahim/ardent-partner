@@ -15,3 +15,22 @@ $enable-rtl: true;
 
 // If you want to add custom CSS you can put it here.
 @import "custom";
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #3E3456;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #574B6E;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4E4166;
+  }

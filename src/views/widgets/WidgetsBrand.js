@@ -4,6 +4,7 @@ import { CWidgetStatsD, CRow, CCol } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cibFacebook, cibLinkedin, cibTwitter, cilCalendar } from '@coreui/icons'
 import { CChart } from '@coreui/react-chartjs'
+import ReactImg from 'src/assets/images/react.jpg'
 
 const WidgetsBrand = ({ withCharts }) => {
   const chartOptions = {
@@ -103,7 +104,8 @@ const WidgetsBrand = ({ withCharts }) => {
             { title: 'tweets', value: '1.792' },
           ]}
           style={{
-            '--cui-card-cap-bg': '#00aced',
+            backgroundImage: `url(${ReactImg})`,
+            // '--cui-card-cap-bg': '#00aced',
           }}
         />
       </CCol>
