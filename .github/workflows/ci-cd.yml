@@ -12,6 +12,7 @@ jobs:
       - name: Run npm install, test and build
         run: |
           npm ci
+          npm run prettier-check
           npm test
           npm run build
       - name: Upload build artifact
