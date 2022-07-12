@@ -1,0 +1,126 @@
+[debug] [2022-07-12T10:22:58.796Z] ----------------------------------------------------------------------
+[debug] [2022-07-12T10:22:58.798Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\shafn\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2022-07-12T10:22:58.798Z] CLI Version:   11.2.1
+[debug] [2022-07-12T10:22:58.798Z] Platform:      win32
+[debug] [2022-07-12T10:22:58.798Z] Node Version:  v16.16.0
+[debug] [2022-07-12T10:22:58.799Z] Time:          Tue Jul 12 2022 15:52:58 GMT+0530 (India Standard Time)
+[debug] [2022-07-12T10:22:58.799Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-07-12T10:22:58.854Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-07-12T10:22:58.854Z] > authorizing via signed-in user (shafna.zainab.fahim@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\zainab\Ardent
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2022-07-12T10:23:08.037Z] Using project from CLI flag: ardent-production-partner
+[debug] [2022-07-12T10:23:08.039Z] > refreshing access token with scopes: []
+[debug] [2022-07-12T10:23:08.041Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2022-07-12T10:23:08.042Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-07-12T10:23:08.509Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2022-07-12T10:23:08.509Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-07-12T10:23:08.528Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ardent-production-partner [none]
+[debug] [2022-07-12T10:23:09.386Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ardent-production-partner 200
+[debug] [2022-07-12T10:23:09.386Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ardent-production-partner {"projectId":"ardent-production-partner","projectNumber":"95044949926","displayName":"Ardent-Production","name":"projects/ardent-production-partner","resources":{"hostingSite":"ardent-production-partner"},"state":"ACTIVE"}
+[info] i  Using project ardent-production-partner (Ardent-Production) 
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[info] +  Wrote build/404.html 
+[debug] [2022-07-12T10:23:20.821Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2022-07-12T10:23:21.156Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2022-07-12T10:23:21.156Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"9.9.0","browserURL":"https://www.gstatic.com/firebasejs/9.9.0/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/9.9.0/firebase.tgz"},"live":{"version":"9.9","browserURL":"https://www.gstatic.com/firebasejs/live/9.9/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/9.9/firebase.tgz"},"components":{"analytics":"https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/9.9.0/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/9.9.0/firebase-auth/cordova.js","auth/react-native":"https://www.gstatic.com/firebasejs/9.9.0/firebase-auth/react-native.js","functions":"https://www.gstatic.com/firebasejs/9.9.0/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore/lite.js","installations":"https://www.gstatic.com/firebasejs/9.9.0/firebase-installations.js","storage":"https://www.gstatic.com/firebasejs/9.9.0/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/9.9.0/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/9.9.0/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/9.9.0/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/9.9.0/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js","firestore.memory":"https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.memory.js"}}
+[info] i  Skipping write of build/index.html 
+[info] 
+[info] i  Detected a .git folder at D:\zainab\Ardent 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=782237251&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2022-07-12T10:23:24.344Z] >>> [apiv2][query] POST https://github.com/login/oauth/access_token [none]
+[debug] [2022-07-12T10:23:24.344Z] >>> [apiv2][body] POST https://github.com/login/oauth/access_token [stream]
+[debug] [2022-07-12T10:23:25.051Z] <<< [apiv2][status] POST https://github.com/login/oauth/access_token 200
+[debug] [2022-07-12T10:23:25.051Z] <<< [apiv2][body] POST https://github.com/login/oauth/access_token {"access_token":"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","token_type":"bearer","scope":"read:user,repo"}
+[debug] [2022-07-12T10:23:25.095Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2022-07-12T10:23:25.764Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2022-07-12T10:23:25.765Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"Zainab-Fahim","id":80398726,"node_id":"MDQ6VXNlcjgwMzk4NzI2","avatar_url":"https://avatars.githubusercontent.com/u/80398726?v=4","gravatar_id":"","url":"https://api.github.com/users/Zainab-Fahim","html_url":"https://github.com/Zainab-Fahim","followers_url":"https://api.github.com/users/Zainab-Fahim/followers","following_url":"https://api.github.com/users/Zainab-Fahim/following{/other_user}","gists_url":"https://api.github.com/users/Zainab-Fahim/gists{/gist_id}","starred_url":"https://api.github.com/users/Zainab-Fahim/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/Zainab-Fahim/subscriptions","organizations_url":"https://api.github.com/users/Zainab-Fahim/orgs","repos_url":"https://api.github.com/users/Zainab-Fahim/repos","events_url":"https://api.github.com/users/Zainab-Fahim/events{/privacy}","received_events_url":"https://api.github.com/users/Zainab-Fahim/received_events","type":"User","site_admin":false,"name":"Zainab Fahim","company":null,"blog":"https://zainabfahim.bio.link/","location":"Sri Lanka","email":null,"hireable":null,"bio":null,"twitter_username":"ZainabFahim9","public_repos":47,"public_gists":0,"followers":28,"following":35,"created_at":"2021-03-10T12:26:08Z","updated_at":"2022-06-19T06:09:45Z","private_gists":0,"total_private_repos":3,"owned_private_repos":2,"disk_usage":148200,"collaborators":0,"two_factor_authentication":false,"plan":{"name":"pro","space":976562499,"collaborators":0,"private_repos":9999}}
+[info] 
+[info] +  Success! Logged into GitHub as Zainab-Fahim 
+[info] 
+[debug] [2022-07-12T10:24:06.842Z] >>> [apiv2][query] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:24:07.446Z] <<< [apiv2][status] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key 404
+[debug] [2022-07-12T10:24:07.446Z] <<< [apiv2][body] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2022-07-12T10:24:21.817Z] >>> [apiv2][query] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:24:22.405Z] <<< [apiv2][status] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key 404
+[debug] [2022-07-12T10:24:22.405Z] <<< [apiv2][body] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2022-07-12T10:24:42.399Z] >>> [apiv2][query] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:24:42.977Z] <<< [apiv2][status] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key 404
+[debug] [2022-07-12T10:24:42.978Z] <<< [apiv2][body] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2022-07-12T10:30:22.714Z] >>> [apiv2][query] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:23.067Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:23.394Z] <<< [apiv2][status] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:23.394Z] <<< [apiv2][body] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2022-07-12T10:30:23.764Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:23.764Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2022-07-12T10:30:25.376Z] >>> [apiv2][query] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:25.559Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:25.737Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:25.889Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:26.059Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:26.070Z] <<< [apiv2][status] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:26.070Z] <<< [apiv2][body] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2022-07-12T10:30:26.101Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:26.102Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2022-07-12T10:30:26.219Z] >>> [apiv2][query] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:26.354Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:26.354Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2022-07-12T10:30:26.441Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:26.441Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2022-07-12T10:30:26.540Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:26.635Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:26.635Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2022-07-12T10:30:26.743Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:26.819Z] <<< [apiv2][status] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:26.819Z] <<< [apiv2][body] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2022-07-12T10:30:26.912Z] >>> [apiv2][query] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:27.072Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:27.073Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2022-07-12T10:30:27.105Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:27.276Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:27.307Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:27.307Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2022-07-12T10:30:27.454Z] >>> [apiv2][query] GET https://api.github.com/repos//actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:27.513Z] <<< [apiv2][status] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:27.513Z] <<< [apiv2][body] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2022-07-12T10:30:27.619Z] >>> [apiv2][query] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key type=owner
+[debug] [2022-07-12T10:30:27.641Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:27.641Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2022-07-12T10:30:28.113Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:28.113Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[debug] [2022-07-12T10:30:28.270Z] <<< [apiv2][status] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:28.270Z] <<< [apiv2][body] GET https://api.github.com/repos/Zainab-Fahim/ardent-partner/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/reference/actions#get-a-repository-public-key"}
+[debug] [2022-07-12T10:30:28.351Z] <<< [apiv2][status] GET https://api.github.com/repos//actions/secrets/public-key 404
+[debug] [2022-07-12T10:30:28.352Z] <<< [apiv2][body] GET https://api.github.com/repos//actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
