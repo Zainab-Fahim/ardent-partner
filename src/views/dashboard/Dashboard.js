@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import db from '../../firebase'
 
 import {
   CAvatar,
@@ -36,6 +37,7 @@ import avatar5 from 'src/assets/images/avatars/5.jpg'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 
 import ReactImg from 'src/assets/images/react.jpg'
+import { collection, onSnapshot } from 'firebase/firestore'
 
 const Dashboard = () => {
   const progressGroupExample1 = [
@@ -182,6 +184,23 @@ const Dashboard = () => {
       status: 'closed',
     },
   ]
+  const [product, setProduct] = useState([
+    {
+      name: 'Loading...',
+      id: 'initial',
+      measurement: 'pieces',
+      status: 'menu',
+      price: 50,
+      avatar: { avatar1 },
+    },
+  ])
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'product'), (snapshot) =>
+        setProduct(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))),
+      ),
+    [],
+  )
   return (
     <>
       <WidgetsDropdown />
@@ -433,6 +452,41 @@ const Dashboard = () => {
                   <div className="small text-medium-emphasis">January - July 2021</div>
                 </CCol>
               </CRow>
+              <CTable align="middle" className="mb-0" hover responsive>
+                <CTableHead color="light">
+                  <CTableRow>
+                    <CTableHeaderCell scope="col">Item</CTableHeaderCell>
+                    <CTableHeaderCell scope="col"></CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Price</CTableHeaderCell>
+                    <CTableHeaderCell scope="col" className="text-center">
+                      Product Status
+                    </CTableHeaderCell>
+                  </CTableRow>
+                </CTableHead>
+                <CTableBody>
+                  {product.map((prod) => (
+                    <CTableRow v-for="cust in recentOrder" key={prod.id}>
+                      {console.log(prod)}
+                      {/* Avatar */}
+                      <CTableDataCell>
+                        <CAvatar size="md" src={prod.avatar} />
+                      </CTableDataCell>
+                      {/* Item */}
+                      <CTableDataCell>{prod.name}</CTableDataCell>
+                      {/* Price */}
+                      <CTableDataCell>
+                        ${prod.price} / {prod.measurement}
+                      </CTableDataCell>
+                      {/* Product Status */}
+                      <CTableDataCell className="text-center">
+                        <CBadge color={prod.status === 'menu' ? 'info' : 'warning'}>
+                          {prod.status}
+                        </CBadge>
+                      </CTableDataCell>
+                    </CTableRow>
+                  ))}
+                </CTableBody>
+              </CTable>
             </CCardBody>
           </CCard>
         </CCol>
