@@ -21,6 +21,7 @@ class App extends Component {
   render() {
     return (
       <HashRouter>
+        <h1> Hello </h1>
         <Suspense fallback={loading}>
           <Routes>
             <Route exact path="/login" name="Login Page" element={<Login />} />
