@@ -16,6 +16,8 @@ jobs:
           npm ci --force
           npm test
           npm run build
+        env:
+          CI: false
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
