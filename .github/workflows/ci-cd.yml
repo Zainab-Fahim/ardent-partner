@@ -11,7 +11,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Run npm install, test and build
         run: |
-          npm@5 ci --force
+          npm cache clear --force
+          npm i --force
+          npm ci --force
           npm test
           npm run build
       - name: Upload build artifact
