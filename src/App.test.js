@@ -4,6 +4,6 @@ import App from './App'
 
 test('renders dashboard', () => {
   render(<App />)
-  const h1Element = screen.getByText(/Hello/i)
+  const h1Element = screen.getByText(/Welcome to EasyAsPie Dashboard/i)
   expect(h1Element).toBeInTheDocument()
 })

@@ -64,7 +64,7 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: >-
-            ${{ FIREBASE_SERVICE_ACCOUNT_ARDENT_PARTNER_STAGING
+            ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ARDENT_PARTNER_STAGING
             }}
           channelId: live
           projectId: ardent-staging-partner
