@@ -2,17 +2,10 @@ import React, { useEffect, useState } from 'react'
 import db from '../../firebase'
 
 import {
-  CAvatar,
   CButton,
   CCard,
-  CCardTitle,
-  CCardText,
   CCardBody,
-  CCardFooter,
-  CCardHeader,
-  CCardImage,
   CCol,
-  CProgress,
   CRow,
   CTable,
   CTableBody,
@@ -20,478 +13,343 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
+  CTableCaption,
   CBadge,
+  CToaster,
+  CToast,
+  CToastHeader,
+  CToastBody,
+  CToastClose,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilCalendar, cilContact, cilPin } from '@coreui/icons'
+import { cilFastfood, cilMoney, cilChatBubble, cilCheckAlt } from '@coreui/icons'
 
-import avatar1 from 'src/assets/images/avatars/1.jpg'
-import avatar2 from 'src/assets/images/avatars/2.jpg'
-import avatar4 from 'src/assets/images/avatars/4.jpg'
-import avatar5 from 'src/assets/images/avatars/5.jpg'
+import { collection, query, where, updateDoc, doc, onSnapshot } from 'firebase/firestore'
 
-import WidgetsDropdown from '../widgets/WidgetsDropdown'
-
-import ReactImg from 'src/assets/images/react.jpg'
-import { collection, onSnapshot } from 'firebase/firestore'
-
+async function setConfirmed(id) {
+  const incoming = doc(db, 'order', `${id}`)
+  await updateDoc(incoming, {
+    status: 'confirmed',
+  })
+}
+async function setPurchased(id) {
+  const confirmed = doc(db, 'order', `${id}`)
+  await updateDoc(confirmed, {
+    status: 'purchased',
+  })
+}
 const Dashboard = () => {
-  const progressGroupExample1 = [
-    { title: 'Week 1', value1: 34, value2: 78 },
-    { title: 'Week 2', value1: 56, value2: 94 },
-    { title: 'Week 3', value1: 12, value2: 67 },
-    { title: 'Week 4', value1: 43, value2: 91 },
-  ]
-
-  const recentOrder = [
+  const [orderPending, setOrderPending] = useState([
     {
-      avatar: avatar1,
-      name: 'Cookie',
-      measurement: 'piece',
-      id: 'p12345',
-      price: 50,
-      itemStatus: 'menu',
-    },
-    {
-      avatar: avatar2,
-      name: 'Cupcake',
-      measurement: 'piece',
-      id: 'p12345',
-      price: 100,
-      itemStatus: 'menu',
-    },
-    {
-      avatar: avatar4,
-      name: 'Ribbon Cake',
-      measurement: '1 Kg',
-      id: 'p12345',
-      price: 1000,
-      itemStatus: 'menu',
-    },
-    {
-      avatar: avatar5,
-      name: 'Chicken Thandoori Pizza',
-      measurement: 'Large',
-      id: 'p12345',
-      price: 1000,
-      itemStatus: 'menu',
-    },
-  ]
-
-  const trendingOrders = [
-    {
-      image: ReactImg,
-      name: 'Chocolate Chip Cookie',
-      measurement: 'piece',
-      orders: 34,
-      price: 15,
-    },
-    {
-      image: ReactImg,
-      name: 'Blueburry Cheese Cake',
-      measurement: '1 Kg',
-      orders: 34,
-      price: 50,
-    },
-    {
-      image: ReactImg,
-      name: 'Vanilla Cupcake',
-      measurement: 'piece',
-      orders: 64,
-      price: 10,
-    },
-    {
-      image: ReactImg,
-      name: 'Fish Patty',
-      measurement: 'piece',
-      orders: 40,
-      price: 5,
-    },
-    {
-      image: ReactImg,
-      name: 'Chicken Thandoori Pizza',
-      measurement: 'Large',
-      orders: 3,
-      price: 100,
-    },
-    {
-      image: ReactImg,
-      name: 'Fish Roll',
-      measurement: 'piece',
-      orders: 4,
-      price: 15,
-    },
-  ]
-
-  const supportTicket = [
-    {
-      user: {
-        name: 'Yiorgos Avraamu',
-        contact: '07789012537',
+      id: `#id`,
+      customer: {
+        name: 'Full Name',
+        contact: '011224599',
       },
-      date: 'Jan 1, 2021',
-      subject: 'Price',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nisl vel felis hendrerit, pulvinar tristique dui laoreet. Vestibulum...',
-      status: 'open',
-    },
-    {
-      user: {
-        name: 'Larry Smith',
-        contact: '07789012537',
+      timepoint: {
+        date: '02/10/2022',
+        time: '12:40 am',
       },
-      date: 'Jan 1, 2021',
-      subject: 'Order',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nisl vel felis hendrerit, pulvinar tristique dui laoreet. Vestibulum...',
-      status: 'closed',
-    },
-    {
-      user: {
-        name: 'Kevin Philips',
-        contact: '07789012537',
-      },
-      date: 'Jan 1, 2021',
-      subject: 'Item',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nisl vel felis hendrerit, pulvinar tristique dui laoreet. Vestibulum...',
-      status: 'open',
-    },
-    {
-      user: {
-        name: 'Kris DOe',
-        contact: '07789012537',
-      },
-      date: 'Jan 1, 2021',
-      subject: 'Price',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nisl vel felis hendrerit, pulvinar tristique dui laoreet. Vestibulum...',
-      status: 'open',
-    },
-    {
-      user: {
-        name: 'Yiorgos Avraamu',
-        contact: '07789012537',
-      },
-      date: 'Jan 1, 2021',
-      subject: 'Price',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nisl vel felis hendrerit, pulvinar tristique dui laoreet. Vestibulum...',
-      status: 'closed',
-    },
-  ]
-  const [product, setProduct] = useState([
-    {
-      name: 'Loading...',
-      id: 'initial',
-      measurement: 'pieces',
-      status: 'menu',
-      price: 50,
-      avatar: { avatar1 },
+      item: [
+        {
+          name: 'Cupcakes',
+          price: 100,
+          measurement: 'Pieces',
+          quantity: 3,
+        },
+      ],
+      status: 'pending',
+      type: 'menu',
+      total: 333,
     },
   ])
   useEffect(
     () =>
-      onSnapshot(collection(db, 'product'), (snapshot) =>
-        setProduct(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))),
+      onSnapshot(
+        query(collection(db, 'order'), where('status', '==', 'pending')),
+        (orderSnapshot2) => {
+          const orderInfoTable = []
+          orderSnapshot2.forEach((orderDoc) => {
+            var orderInfo = orderDoc.data()
+            let itemArr = []
+            orderInfo.item.forEach((item) => {
+              itemArr.push({
+                name: item.name,
+                price: parseInt(item.price),
+                measurement: item.measurement,
+                quantity: parseInt(item.quantity),
+              })
+            })
+            orderInfoTable.push({
+              id: orderDoc.id,
+              customer: { name: orderInfo.customer.name, contact: orderInfo.customer.contact },
+              timepoint: { date: orderInfo.timepoint.date, time: orderInfo.timepoint.time },
+              item: itemArr,
+              status: orderInfo.status,
+              type: orderInfo.type,
+              total: orderInfo.total,
+            })
+          })
+          setOrderPending(orderInfoTable)
+        },
       ),
     [],
   )
+  const [orderConfirmed, setOrderConfirmed] = useState([
+    {
+      id: `#id`,
+      customer: {
+        name: 'Full Name',
+        contact: '011224599',
+      },
+      timepoint: {
+        date: '02/10/2022',
+        time: '12:40 am',
+      },
+      item: [
+        {
+          name: 'Cupcakes',
+          price: 100,
+          measurement: 'Pieces',
+          quantity: 3,
+        },
+      ],
+      status: 'pending',
+      type: 'menu',
+      total: 333,
+    },
+  ])
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, 'order'), where('status', '==', 'confirmed')),
+        (orderSnapshot2) => {
+          const orderInfoTable = []
+          orderSnapshot2.forEach((orderDoc) => {
+            var orderInfo = orderDoc.data()
+            let itemArr = []
+            orderInfo.item.forEach((item) => {
+              itemArr.push({
+                name: item.name,
+                price: parseInt(item.price),
+                measurement: item.measurement,
+                quantity: parseInt(item.quantity),
+              })
+            })
+            orderInfoTable.push({
+              id: orderDoc.id,
+              customer: { name: orderInfo.customer.name, contact: orderInfo.customer.number },
+              timepoint: { date: orderInfo.timepoint.date, time: orderInfo.timepoint.time },
+              item: itemArr,
+              status: orderInfo.status,
+              type: orderInfo.type,
+              total: orderInfo.total,
+            })
+          })
+          setOrderConfirmed(orderInfoTable)
+        },
+      ),
+    [],
+  )
+
   return (
-    <>
-      <WidgetsDropdown />
+    <div>
       <CRow xs={{ cols: 1 }} md={{ cols: 2 }}>
-        <CCol>
-          <CCard className="mb-4">
-            <CCardHeader>
-              RECENT ORDERS REQUESTED{' '}
-              <CButton color="primary" className="float-end">
-                {' '}
-                View All{' '}
-              </CButton>
-            </CCardHeader>
-            <CCardBody>
-              <CTable align="middle" className="mb-0" hover responsive>
-                <CTableHead color="light">
-                  <CTableRow>
-                    <CTableHeaderCell scope="col">Item</CTableHeaderCell>
-                    <CTableHeaderCell scope="col"></CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Price</CTableHeaderCell>
-                    <CTableHeaderCell scope="col" className="text-center">
-                      Product Status
-                    </CTableHeaderCell>
-                  </CTableRow>
-                </CTableHead>
-                <CTableBody>
-                  {recentOrder.map((prod, index) => (
-                    <CTableRow v-for="cust in recentOrder" key={index}>
-                      {/* Avatar */}
-                      <CTableDataCell>
-                        <CAvatar size="md" src={prod.avatar} />
-                      </CTableDataCell>
-                      {/* Item */}
-                      <CTableDataCell>{prod.name}</CTableDataCell>
-                      {/* Price */}
-                      <CTableDataCell>
-                        ${prod.price} / {prod.measurement}
-                      </CTableDataCell>
-                      {/* Product Status */}
-                      <CTableDataCell className="text-center">
-                        <CBadge color={prod.itemStatus === 'menu' ? 'info' : 'warning'}>
-                          {prod.itemStatus}
-                        </CBadge>
-                      </CTableDataCell>
-                    </CTableRow>
-                  ))}
-                </CTableBody>
-              </CTable>
-            </CCardBody>
-          </CCard>
-        </CCol>
-        <CCol>
+        {/* incoming orders */}
+        <CCol md={6}>
           <CCard className="mb-4">
             <CCardBody>
               <CRow>
-                <CCol sm={5}>
+                <CCol sm={7}>
                   <h4 id="traffic" className="card-title mb-0">
-                    Revenue
+                    Incoming Orders
                   </h4>
-                  <div className="small text-medium-emphasis">January - July 2021</div>
                 </CCol>
-                <CCol sm={7} className="d-none d-md-block">
-                  <CDropdown className="float-end">
-                    <CDropdownToggle color="primary">Select Month</CDropdownToggle>
-                    <CDropdownMenu>
-                      {[
-                        'January',
-                        'February',
-                        'March',
-                        'April',
-                        'May',
-                        'June',
-                        'July',
-                        'August',
-                        'September',
-                        'October',
-                        'November',
-                        'December',
-                      ].map((value) => (
-                        <CDropdownItem href="#" key={value}>
-                          {value}
-                        </CDropdownItem>
-                      ))}
-                    </CDropdownMenu>
-                  </CDropdown>
-                </CCol>
-                <CCol>
-                  <br />
-                  {progressGroupExample1.map((item, index) => (
-                    <div className="progress-group mb-4" key={index}>
-                      <div className="progress-group-prepend">
-                        <span className="text-medium-emphasis small">{item.title}</span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="info" value={item.value1} />
-                        <CProgress thin color="danger" value={item.value2} />
-                      </div>
-                    </div>
-                  ))}
-                </CCol>
+                <CCol sm={5} className="d-none d-md-block"></CCol>
               </CRow>
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
-      <CCard className="mb-4">
-        <CCardHeader>TRENDING ORDERS</CCardHeader>
-        <CCardBody>
-          <CRow>
-            <CCol>
-              <CRow xs={{ cols: 1, gutter: 4 }} md={{ cols: 4 }}>
-                {trendingOrders.map((item, index) => (
-                  <CCol xs key={index}>
-                    <CCard>
-                      <CCardImage orientation="top" src={ReactImg} />
-                      <CCardBody>
-                        <CCardTitle>{item.name}</CCardTitle>
-                        <CCardText>
-                          <CRow>
-                            <CCol xs="auto">
-                              Orders: <strong>{item.orders}</strong>
-                            </CCol>
-                            <CCol xs="auto">
-                              Revenue: <strong>${item.orders * item.price}</strong>
-                            </CCol>
-                          </CRow>
-                          <CRow>
-                            <CCol>
-                              <small className="text-medium-emphasis">
-                                ${item.price} per {item.measurement} {item.name}
-                              </small>
-                            </CCol>
-                          </CRow>
-                        </CCardText>
-                      </CCardBody>
-                    </CCard>
-                  </CCol>
-                ))}
-              </CRow>
-            </CCol>
-          </CRow>
-        </CCardBody>
-        <CCardFooter>
-          <CRow>
-            <CCol xs={12} md={6} xl={6}>
               <CRow>
-                <CCol sm={6}>
-                  <div className="border-start border-start-4 border-start-info py-1 px-3">
-                    <div className="text-medium-emphasis small">Total Orders</div>
-                    <div className="fs-5 fw-semibold">9,123</div>
-                  </div>
-                </CCol>
-                <CCol sm={6}>
-                  <div className="border-start border-start-4 border-start-danger py-1 px-3 mb-3">
-                    <div className="text-medium-emphasis small">New Orders</div>
-                    <div className="fs-5 fw-semibold">22,643</div>
-                  </div>
-                </CCol>
-              </CRow>
-            </CCol>
-            <CCol xs={12} md={6} xl={6}>
-              <CRow>
-                <CCol sm={6}>
-                  <div className="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
-                    <div className="text-medium-emphasis small">Repeat Orders</div>
-                    <div className="fs-5 fw-semibold">78,623</div>
-                  </div>
-                </CCol>
-                <CCol sm={6}>
-                  <div className="border-start border-start-4 border-start-success py-1 px-3 mb-3">
-                    <div className="text-medium-emphasis small">Cancel Orders</div>
-                    <div className="fs-5 fw-semibold">49,123</div>
-                  </div>
-                </CCol>
-              </CRow>
-            </CCol>
-          </CRow>
-        </CCardFooter>
-      </CCard>
-      <CRow xs={{ cols: 1 }} md={{ cols: 2 }}>
-        <CCol>
-          <CCard className="mb-4">
-            <CCardHeader>
-              RECENT SUPPORT TICKETS{' '}
-              <CButton color="primary" className="float-end">
-                {' '}
-                View All{' '}
-              </CButton>
-            </CCardHeader>
-            <CCardBody>
-              <CTable hover responsive>
-                <CTableBody>
-                  {supportTicket.map((item, index) => (
-                    <CTableRow v-for="item in tableItems" key={index}>
-                      <CTableDataCell className="text-center" xs={2}>
-                        <CAvatar
-                          size="lg"
-                          src={`https://ui-avatars.com/api/?background=random&rounded=true&bold=true&name=${item.user.name}`}
-                        />
-                      </CTableDataCell>
-                      <CTableDataCell style={{ padding: '3%' }}>
-                        <div>
-                          {item.user.name}{' '}
-                          <span className="float-end">
-                            {' '}
-                            <CBadge color={item.status === 'open' ? 'danger' : 'success'}>
-                              {item.status}
+                <>
+                  {orderPending.map((order, index) => (
+                    <CToaster key={index} md={6}>
+                      <CToast autohide={false} visible={true}>
+                        <CToastHeader>
+                          <CCol xs={1.5}>
+                            <CIcon icon={cilFastfood} className="me-2" size="xl" />
+                          </CCol>
+                          <CCol xs={6}>
+                            <strong style={{ padding: '.5rem' }}>Order No. {order.id}</strong>{' '}
+                            {'     '}
+                            <CBadge color={order.type === 'off-the-shelf' ? 'warning' : 'info'}>
+                              {order.type}
                             </CBadge>
-                          </span>
-                        </div>
-                        <div className="small text-medium-emphasis">
-                          <CIcon className="me-2" icon={cilCalendar} size="sm" />
-                          <span className="text-medium-emphasis small">{item.date}</span>
-                        </div>
-                        <div className="small">{item.description}</div>
-                        <CRow>
-                          <CCol>
-                            <div className="small">
-                              <CIcon className="me-2" icon={cilContact} size="sm" />
-                              <span className="text-medium-emphasis small">
-                                {item.user.contact}
-                              </span>
+                          </CCol>
+                          <CCol xs={5}>
+                            <div className="float-end">
+                              {order.timepoint.date} <small>{order.timepoint.time}</small>
                             </div>
                           </CCol>
-                          <CCol>
-                            <div className="small">
-                              <CIcon className="me-2" icon={cilPin} size="sm" />
-                              <span className="text-medium-emphasis small">{item.subject}</span>
-                            </div>
-                          </CCol>
-                        </CRow>
-                      </CTableDataCell>
-                      <hr className="mt-0" />
-                    </CTableRow>
+                        </CToastHeader>
+                        <CToastBody>
+                          <CTable borderless caption="top">
+                            <CTableCaption>
+                              <div className="text-medium-emphasis">
+                                {order.customer.name} {order.customer.contact}
+                                <CButton
+                                  color="dark"
+                                  variant="ghost"
+                                  size="sm"
+                                  className="float-end"
+                                >
+                                  <CIcon icon={cilChatBubble} className="me-2" />
+                                  Chat
+                                </CButton>
+                              </div>{' '}
+                            </CTableCaption>
+                            <CTableHead>
+                              <CTableRow>
+                                <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                <CTableHeaderCell
+                                  scope="col"
+                                  className="text-center"
+                                ></CTableHeaderCell>
+                                <CTableHeaderCell scope="col"></CTableHeaderCell>
+                              </CTableRow>
+                            </CTableHead>
+                            <CTableBody>
+                              {order.item.map((item, index) => (
+                                <CTableRow v-for="item in order" key={index}>
+                                  <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                                  <CTableDataCell scope="row">{item.name}</CTableDataCell>
+                                  <CTableDataCell className="text-center">
+                                    <small>{item.measurement}</small> x {item.quantity}
+                                  </CTableDataCell>
+                                  <CTableDataCell>${item.price * item.quantity}</CTableDataCell>
+                                </CTableRow>
+                              ))}
+                            </CTableBody>
+                          </CTable>
+                          <div className="mt-2 pt-2 border-top">
+                            <CButton
+                              style={{ margin: '0', padding: '0' }}
+                              onClick={() => setConfirmed(order.id)}
+                            >
+                              <CToastClose component={CButton} color="primary" size="sm">
+                                <CIcon icon={cilCheckAlt} className="me-2" />
+                                Accept Order
+                              </CToastClose>
+                            </CButton>
+                          </div>
+                        </CToastBody>
+                      </CToast>
+                    </CToaster>
                   ))}
-                </CTableBody>
-              </CTable>
+                </>
+              </CRow>
             </CCardBody>
           </CCard>
         </CCol>
-        <CCol>
+        {/* confirmed orders */}
+        <CCol md={6}>
           <CCard className="mb-4">
             <CCardBody>
               <CRow>
-                <CCol sm={5}>
+                <CCol sm={7}>
                   <h4 id="traffic" className="card-title mb-0">
-                    Chat BOT
+                    Confirmed Orders
                   </h4>
-                  <div className="small text-medium-emphasis">January - July 2021</div>
                 </CCol>
+                <CCol sm={5} className="d-none d-md-block"></CCol>
               </CRow>
-              <CTable align="middle" className="mb-0" hover responsive>
-                <CTableHead color="light">
-                  <CTableRow>
-                    <CTableHeaderCell scope="col">Item</CTableHeaderCell>
-                    <CTableHeaderCell scope="col"></CTableHeaderCell>
-                    <CTableHeaderCell scope="col">Price</CTableHeaderCell>
-                    <CTableHeaderCell scope="col" className="text-center">
-                      Product Status
-                    </CTableHeaderCell>
-                  </CTableRow>
-                </CTableHead>
-                <CTableBody>
-                  {product.map((prod) => (
-                    <CTableRow v-for="cust in recentOrder" key={prod.id}>
-                      {console.log(prod.avatar)}
-                      {/* Avatar */}
-                      <CTableDataCell>
-                        <CAvatar size="md" src={prod.avatar} />
-                      </CTableDataCell>
-                      {/* Item */}
-                      <CTableDataCell>{prod.name}</CTableDataCell>
-                      {/* Price */}
-                      <CTableDataCell>
-                        ${prod.price} / {prod.measurement}
-                      </CTableDataCell>
-                      {/* Product Status */}
-                      <CTableDataCell className="text-center">
-                        <CBadge color={prod.status === 'menu' ? 'info' : 'warning'}>
-                          {prod.status}
-                        </CBadge>
-                      </CTableDataCell>
-                    </CTableRow>
+              <CRow>
+                <>
+                  {orderConfirmed.map((order, index) => (
+                    <CToaster key={index} md={6}>
+                      <CToast autohide={false} visible={true}>
+                        <CToastHeader>
+                          <CCol xs={1.5}>
+                            <CIcon icon={cilFastfood} className="me-2" size="xl" />
+                          </CCol>
+                          <CCol xs={6}>
+                            <strong style={{ padding: '.5rem' }}>Order No. {order.id}</strong>{' '}
+                            {'     '}
+                            <CBadge color={order.type === 'off-the-shelf' ? 'warning' : 'info'}>
+                              {order.type}
+                            </CBadge>
+                          </CCol>
+                          <CCol xs={5}>
+                            <div className="float-end">
+                              {order.timepoint.date} <small>{order.timepoint.time}</small>
+                            </div>
+                          </CCol>
+                        </CToastHeader>
+                        <CToastBody>
+                          <CTable borderless caption="top">
+                            <CTableCaption>
+                              <div className="text-medium-emphasis">
+                                {order.customer.name} {order.customer.contact}
+                                <CButton
+                                  color="dark"
+                                  variant="ghost"
+                                  size="sm"
+                                  className="float-end"
+                                >
+                                  <CIcon icon={cilChatBubble} className="me-2" />
+                                  Chat
+                                </CButton>
+                              </div>{' '}
+                            </CTableCaption>
+                            <CTableHead>
+                              <CTableRow>
+                                <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                <CTableHeaderCell
+                                  scope="col"
+                                  className="text-center"
+                                ></CTableHeaderCell>
+                                <CTableHeaderCell scope="col"></CTableHeaderCell>
+                              </CTableRow>
+                            </CTableHead>
+                            <CTableBody>
+                              {order.item.map((item, index) => (
+                                <CTableRow v-for="item in order" key={index}>
+                                  <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                                  <CTableDataCell scope="row">{item.name}</CTableDataCell>
+                                  <CTableDataCell className="text-center">
+                                    <small>{item.measurement}</small> x {item.quantity}
+                                  </CTableDataCell>
+                                  <CTableDataCell>${item.price * item.quantity}</CTableDataCell>
+                                </CTableRow>
+                              ))}
+                            </CTableBody>
+                          </CTable>
+                          <div className="mt-2 pt-2 border-top">
+                            <CButton
+                              style={{ margin: '0', padding: '0', backgroundColor: 'none' }}
+                              onClick={() => setPurchased(order.id)}
+                            >
+                              <CToastClose
+                                component={CButton}
+                                color="success"
+                                size="sm"
+                                className="ms-1"
+                              >
+                                <CIcon icon={cilMoney} className="me-2" />
+                                Purchased = ${order.total}
+                              </CToastClose>
+                            </CButton>
+                          </div>
+                        </CToastBody>
+                      </CToast>
+                    </CToaster>
                   ))}
-                </CTableBody>
-              </CTable>
+                </>
+              </CRow>
             </CCardBody>
           </CCard>
         </CCol>
       </CRow>
-    </>
+    </div>
   )
 }
 
