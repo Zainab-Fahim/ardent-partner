@@ -3,13 +3,13 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 const firebaseConfig = {
-  apiKey: 'AIzaSyAur_dfJ3XhY7cWf7UbMnnJV12FjL8LxUk',
+  apiKey: '',
   authDomain: 'ardent-partner.firebaseapp.com',
   projectId: 'ardent-partner',
   storageBucket: 'ardent-partner.appspot.com',
-  messagingSenderId: '820966141114',
-  appId: '1:820966141114:web:ba64950a3478028a546683',
-  measurementId: 'G-CKZ53RTBZJ',
+  messagingSenderId: '',
+  appId: '',
+  measurementId: '',
 }
 const app = initializeApp(firebaseConfig)
 export default getFirestore()
