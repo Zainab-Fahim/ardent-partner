@@ -1,238 +1,76 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
-  CButton,
-  CPagination,
-  CPaginationItem,
   CAvatar,
-  CProgress,
+  CBadge,
   CTable,
   CTableBody,
   CTableDataCell,
   CTableHead,
   CTableHeaderCell,
   CTableRow,
-  CModal,
-  CModalBody,
-  CModalFooter,
-  CModalHeader,
-  CModalTitle,
-  CListGroup,
-  CListGroupItem,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilPeople } from '@coreui/icons'
+import { cilFastfood } from '@coreui/icons'
 
 import { CCard, CCardBody, CCol, CRow } from '@coreui/react'
+import db from '../../firebase'
+import { collection, query, onSnapshot } from 'firebase/firestore'
 
-function calcPeriod(order) {
-  let end = order[0].date
-  let len = order.length
-  let start = order[len - 1].date
-  return `${start} - ${end}`
-}
-function calcRevenue(order) {
-  var total = 0
-  for (var i = 0; i < order.length; i++) {
-    for (var j = 0; j < order[i].item.length; j++) {
-      var product = order[i].item[j]
-      total += product.price * product.quantity
-    }
-  }
-  return total
-}
-
-function freqColor(val) {
-  if (val > 0 && val < 30) {
-    return 'danger'
-  } else if (val >= 30 && val < 70) {
-    return 'dark'
-  } else if (val >= 70 && val <= 100) {
-    return 'success'
-  }
-}
-
-const tableExample = [
-  {
-    customer: {
-      id: 'c1235',
-      name: 'Kris Doe',
-      contact: '011224599',
-    },
-    order: [
-      {
+//main component
+const OrderPage = () => {
+  const [order, setOrder] = useState([
+    {
+      id: `#id`,
+      customer: {
+        name: 'Full Name',
+        contact: '011224599',
+      },
+      timepoint: {
         date: '02/10/2022',
         time: '12:40 am',
-        id: 2,
-        item: [
-          {
-            name: 'Cupcakes',
-            price: 100,
-            measurement: 'Pieces',
-            quantity: 3,
-          },
-          {
-            name: 'Cookies',
-            price: 50,
-            measurement: 'Pieces',
-            quantity: 2,
-          },
-        ],
       },
-      {
-        date: '19/10/2022',
-        time: '01:40 pm',
-        id: 11,
-        item: [
-          {
-            name: 'Ribbon Cake',
-            price: 1000,
-            measurement: '1 kg',
-            quantity: 1,
-          },
-        ],
-      },
-      {
-        date: '20/09/2022',
-        time: '08:13 am',
-        id: 5,
-        item: [
-          {
-            name: 'Chicken Thandoori Pizza',
-            price: 1000,
-            measurement: 'Large',
-            quantity: 2,
-          },
-          {
-            name: 'Blueburry Cheese Cake',
-            price: 2000,
-            measurement: '1 kg',
-            quantity: 1,
-          },
-          {
-            name: 'Chicken Submarrine',
-            price: 300,
-            measurement: 'Large',
-            quantity: 5,
-          },
-        ],
-      },
-    ],
-    frequency: {
-      value: 80,
+      item: [
+        {
+          name: 'Cupcakes',
+          price: 100,
+          measurement: 'Pieces',
+          quantity: 3,
+        },
+      ],
+      status: 'pending',
+      type: 'instant',
+      total: 333,
     },
-  },
-  {
-    customer: {
-      id: 'c1531',
-      name: 'Aleen Doe',
-      contact: '011224599',
-    },
-    order: [
-      {
-        date: '02/10/2022',
-        time: '12:40 am',
-        id: 6,
-        item: [
-          {
-            name: 'Cupcakes',
-            price: 100,
-            measurement: 'Pieces',
-            quantity: 3,
-          },
-          {
-            name: 'Cookies',
-            price: 50,
-            measurement: 'Pieces',
-            quantity: 10,
-          },
-        ],
-      },
-      {
-        date: '20/07/2022',
-        time: '08:13 am',
-        id: 5,
-        item: [
-          {
-            name: 'Chicken Thandoori Pizza',
-            price: 1000,
-            measurement: 'Large',
-            quantity: 2,
-          },
-          {
-            name: 'Blueburry Cheese Cake',
-            price: 2000,
-            measurement: '1 kg',
-            quantity: 1,
-          },
-          {
-            name: 'Chicken Submarrine',
-            price: 300,
-            measurement: 'Large',
-            quantity: 5,
-          },
-        ],
-      },
-    ],
-    frequency: {
-      value: 50,
-    },
-  },
-]
-const VerticallyCentered2 = (cust) => {
-  const [visible, setVisible] = useState(false)
-  return (
-    <>
-      <CButton onClick={() => setVisible(!visible)}>View</CButton>
-      <CModal alignment="center" scrollable visible={visible} onClose={() => setVisible(false)}>
-        <CModalHeader>
-          <CModalTitle>
-            <strong>{cust.customer.name}</strong> <small>{cust.customer.contact}</small>
-          </CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          {cust.order.map((purchase, index) => (
-            <CListGroup v-for="purchase in cust" key={index} flush>
-              <CListGroupItem v-for="product in item" key={index} component="a">
-                <div className="d-flex w-100 justify-content-between">
-                  <h5 className="mb-1">Order No. {purchase.id}</h5>
-                  <small>{purchase.date}</small>
-                </div>
-                <CTable>
-                  <CTableHead>
-                    <CTableRow>
-                      <CTableHeaderCell scope="col"></CTableHeaderCell>
-                      <CTableHeaderCell scope="col"></CTableHeaderCell>
-                      <CTableHeaderCell scope="col" className="text-center"></CTableHeaderCell>
-                      <CTableHeaderCell scope="col"></CTableHeaderCell>
-                    </CTableRow>
-                  </CTableHead>
-                  <CTableBody>
-                    {purchase.item.map((item, index) => (
-                      <CTableRow v-for="item in tableItems" key={index}>
-                        <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                        <CTableDataCell scope="row">{item.name}</CTableDataCell>
-                        <CTableDataCell className="text-center">
-                          <small>{item.measurement}</small> x {item.quantity}
-                        </CTableDataCell>
-                        <CTableDataCell>${item.price * item.quantity}</CTableDataCell>
-                      </CTableRow>
-                    ))}
-                  </CTableBody>
-                </CTable>
-              </CListGroupItem>
-            </CListGroup>
-          ))}
-        </CModalBody>
-        <CModalFooter>
-          <CButton color="primary" onClick={() => setVisible(false)}>
-            Close
-          </CButton>
-        </CModalFooter>
-      </CModal>
-    </>
+  ])
+  useEffect(
+    () =>
+      onSnapshot(query(collection(db, 'order')), (orderSnapshot2) => {
+        const orderInfoTable = []
+        orderSnapshot2.forEach((orderDoc) => {
+          var orderInfo = orderDoc.data()
+          let itemArr = []
+          orderInfo.item.forEach((item) => {
+            itemArr.push({
+              name: item.name,
+              price: parseInt(item.price),
+              measurement: item.measurement,
+              quantity: parseInt(item.quantity),
+            })
+          })
+          orderInfoTable.push({
+            id: orderDoc.id,
+            customer: { name: orderInfo.customer.name, contact: orderInfo.customer.contact },
+            timepoint: { date: orderInfo.timepoint.date, time: orderInfo.timepoint.time },
+            item: itemArr,
+            status: orderInfo.status,
+            type: orderInfo.type,
+            total: orderInfo.total,
+          })
+        })
+        setOrder(orderInfoTable)
+      }),
+    [],
   )
-}
-const Alerts = () => {
   return (
     <CRow>
       <CCol xs={12}>
@@ -242,76 +80,75 @@ const Alerts = () => {
               <CTableHead color="light">
                 <CTableRow>
                   <CTableHeaderCell className="text-center">
-                    <CIcon icon={cilPeople} />
+                    <CIcon icon={cilFastfood} />
                   </CTableHeaderCell>
                   <CTableHeaderCell>Customer</CTableHeaderCell>
-                  <CTableHeaderCell className="text-center">Total Revenue</CTableHeaderCell>
-                  <CTableHeaderCell>Order Frequency</CTableHeaderCell>
-                  <CTableHeaderCell className="text-center">Purchase History</CTableHeaderCell>
-                  <CTableHeaderCell>Last Ordered</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center">Order Type</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center">Total</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center">Order Status</CTableHeaderCell>
+                  <CTableHeaderCell>Items Ordered</CTableHeaderCell>
+                  <CTableHeaderCell>Order Timepoint</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                {tableExample.map((cust, index) => (
+                {order.map((order, index) => (
                   <CTableRow v-for="cust in tableItems" key={index}>
                     {/* Avatar */}
                     <CTableDataCell className="text-center">
                       <CAvatar
                         size="md"
-                        src={`https://ui-avatars.com/api/?background=random&rounded=true&bold=true&name=${cust.customer.name}`}
+                        src={`https://ui-avatars.com/api/?background=random&rounded=true&bold=true&name=${order.id}`}
                       />
                     </CTableDataCell>
                     {/* Customer */}
                     <CTableDataCell>
                       <div>
-                        {cust.customer.name}
-                        {' | '}
-                        <span className="small">{cust.customer.id}</span>
+                        {order.customer.name}
+                        <span className="small">{order.customer.id}</span>
                       </div>
-                      <div className="small text-medium-emphasis">{cust.customer.contact}</div>
+                      <div className="small text-medium-emphasis">{order.customer.contact}</div>
+                    </CTableDataCell>
+                    {/* Order Type */}
+                    <CTableDataCell className="text-center">
+                      <CBadge color={order.type === 'instant' ? 'warning' : 'info'}>
+                        {order.type}
+                      </CBadge>
                     </CTableDataCell>
                     {/* Total Revenue */}
-                    <CTableDataCell className="text-center">
-                      ${calcRevenue(cust.order)}
-                    </CTableDataCell>
+                    <CTableDataCell className="text-center">${order.total}</CTableDataCell>
                     {/* Order Frequency */}
-                    <CTableDataCell>
-                      <div className="clearfix">
-                        <div className="float-start">
-                          <strong>{cust.frequency.value}%</strong>
-                        </div>
-                        <div className="float-end">
-                          <small className="text-medium-emphasis">{calcPeriod(cust.order)}</small>
-                        </div>
-                      </div>
-                      <CProgress
-                        thin
-                        color={freqColor(cust.frequency.value)}
-                        value={cust.frequency.value}
-                      />
+                    <CTableDataCell className="text-center">
+                      <CBadge
+                        color={
+                          order.status === 'purchased'
+                            ? 'success'
+                            : order.status === 'confirmed'
+                            ? 'dark'
+                            : 'danger'
+                        }
+                      >
+                        {order.status}
+                      </CBadge>
                     </CTableDataCell>
                     {/* Purchase History */}
-                    <CTableDataCell className="text-center">
-                      {VerticallyCentered2(cust)}
+                    <CTableDataCell>
+                      {' '}
+                      {order.item.map((item, index) => (
+                        <div v-for="item in tableItems" key={index}>
+                          <span>{item.name}</span>
+                          <small> ({item.measurement}</small> x {item.quantity})
+                        </div>
+                      ))}
                     </CTableDataCell>
                     {/* Last Ordered */}
                     <CTableDataCell>
-                      <span className="text-medium-emphasis small">{cust.order[0].time}</span>
-                      <div>{cust.order[0].date}</div>
+                      <span className="text-medium-emphasis small">{order.timepoint.time}</span>
+                      <div>{order.timepoint.date}</div>
                     </CTableDataCell>
                   </CTableRow>
                 ))}
               </CTableBody>
             </CTable>
-            <div style={{ paddingTop: '1rem' }}>
-              <CPagination className="justify-content-end" aria-label="Page navigation example">
-                <CPaginationItem disabled>Previous</CPaginationItem>
-                <CPaginationItem>1</CPaginationItem>
-                <CPaginationItem>2</CPaginationItem>
-                <CPaginationItem>3</CPaginationItem>
-                <CPaginationItem>Next</CPaginationItem>
-              </CPagination>
-            </div>
           </CCardBody>
         </CCard>
       </CCol>
@@ -319,4 +156,4 @@ const Alerts = () => {
   )
 }
 
-export default Alerts
+export default OrderPage
