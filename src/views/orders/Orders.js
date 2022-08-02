@@ -110,7 +110,7 @@ const OrderPage = () => {
                     </CTableDataCell>
                     {/* Order Type */}
                     <CTableDataCell className="text-center">
-                      <CBadge color={order.type === 'instant' ? 'warning' : 'info'}>
+                      <CBadge color={order.type === 'menu' ? 'info' : 'warning'}>
                         {order.type}
                       </CBadge>
                     </CTableDataCell>
