@@ -15,11 +15,8 @@ import {
   CTableRow,
   CTableCaption,
   CBadge,
-  CToaster,
-  CToast,
-  CToastHeader,
-  CToastBody,
-  CToastClose,
+  CCardText,
+  CCardHeader,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilFastfood, cilMoney, cilChatBubble, cilCheckAlt } from '@coreui/icons'
@@ -160,91 +157,91 @@ const Dashboard = () => {
           <CCard className="mb-4">
             <CCardBody>
               <CRow>
-                <CCol sm={7}>
+                <CCol sm={7} style={{ padding: '1rem' }}>
                   <h4 id="traffic" className="card-title mb-0">
                     Incoming Orders
                   </h4>
                 </CCol>
                 <CCol sm={5} className="d-none d-md-block"></CCol>
               </CRow>
-              <CRow>
-                <>
-                  {orderPending.map((order, index) => (
-                    <CToaster key={index} md={6}>
-                      <CToast autohide={false} visible={true}>
-                        <CToastHeader>
-                          <CCol xs={1.5}>
-                            <CIcon icon={cilFastfood} className="me-2" size="xl" />
-                          </CCol>
-                          <CCol xs={6}>
-                            <strong style={{ padding: '.5rem' }}>Order No. {order.id}</strong>{' '}
-                            {'     '}
-                            <CBadge color={order.type === 'off-the-shelf' ? 'warning' : 'info'}>
-                              {order.type}
-                            </CBadge>
-                          </CCol>
-                          <CCol xs={5}>
-                            <div className="float-end">
-                              {order.timepoint.date} <small>{order.timepoint.time}</small>
-                            </div>
-                          </CCol>
-                        </CToastHeader>
-                        <CToastBody>
-                          <CTable borderless caption="top">
-                            <CTableCaption>
-                              <div className="text-medium-emphasis">
-                                {order.customer.name} {order.customer.contact}
-                                <CButton
-                                  color="dark"
-                                  variant="ghost"
-                                  size="sm"
-                                  className="float-end"
-                                >
-                                  <CIcon icon={cilChatBubble} className="me-2" />
-                                  Chat
-                                </CButton>
-                              </div>{' '}
-                            </CTableCaption>
-                            <CTableHead>
-                              <CTableRow>
-                                <CTableHeaderCell scope="col"></CTableHeaderCell>
-                                <CTableHeaderCell scope="col"></CTableHeaderCell>
-                                <CTableHeaderCell
-                                  scope="col"
-                                  className="text-center"
-                                ></CTableHeaderCell>
-                                <CTableHeaderCell scope="col"></CTableHeaderCell>
-                              </CTableRow>
-                            </CTableHead>
-                            <CTableBody>
-                              {order.item.map((item, index) => (
-                                <CTableRow v-for="item in order" key={index}>
-                                  <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                                  <CTableDataCell scope="row">{item.name}</CTableDataCell>
-                                  <CTableDataCell className="text-center">
-                                    <small>{item.measurement}</small> x {item.quantity}
-                                  </CTableDataCell>
-                                  <CTableDataCell>${item.price * item.quantity}</CTableDataCell>
-                                </CTableRow>
-                              ))}
-                            </CTableBody>
-                          </CTable>
-                          <div className="mt-2 pt-2 border-top">
-                            <CButton
-                              style={{ margin: '0', padding: '0' }}
-                              onClick={() => setConfirmed(order.id)}
-                            >
-                              <CToastClose component={CButton} color="primary" size="sm">
-                                <CIcon icon={cilCheckAlt} className="me-2" />
-                                Accept Order
-                              </CToastClose>
-                            </CButton>
+              <CRow xs={{ cols: 2, gutter: 6 }} md={{ cols: 1 }}>
+                <CCol xs>
+                  <>
+                    {orderPending.map((order, index) => (
+                      <CCard
+                        key={index}
+                        textColor="primary"
+                        className={`mb-3 border-top-primary border-top-3`}
+                      >
+                        <CCardHeader>
+                          <CIcon icon={cilFastfood} className="me-2" size="xl" />
+                          <strong style={{ padding: '.5rem' }}>Order No. {order.id}</strong>{' '}
+                          {'     '}
+                          <CBadge color={order.type === 'off-the-shelf' ? 'warning' : 'info'}>
+                            {order.type}
+                          </CBadge>
+                          <div className="float-end">
+                            {order.timepoint.date} <small>{order.timepoint.time}</small>
                           </div>
-                        </CToastBody>
-                      </CToast>
-                    </CToaster>
-                  ))}
-                </>
+                        </CCardHeader>
+                        <CCardBody>
+                          <CCardText>
+                            <CTable borderless caption="top">
+                              <CTableCaption>
+                                <div className="text-medium-emphasis">
+                                  {order.customer.name} {order.customer.contact}
+                                  <CButton
+                                    color="dark"
+                                    variant="ghost"
+                                    size="sm"
+                                    className="float-end"
+                                  >
+                                    <CIcon icon={cilChatBubble} className="me-2" />
+                                    Chat
+                                  </CButton>
+                                </div>{' '}
+                              </CTableCaption>
+                              <CTableHead>
+                                <CTableRow>
+                                  <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                  <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                  <CTableHeaderCell
+                                    scope="col"
+                                    className="text-center"
+                                  ></CTableHeaderCell>
+                                  <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                </CTableRow>
+                              </CTableHead>
+                              <CTableBody>
+                                {order.item.map((item, index) => (
+                                  <CTableRow v-for="item in order" key={index}>
+                                    <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                                    <CTableDataCell scope="row">{item.name}</CTableDataCell>
+                                    <CTableDataCell className="text-center">
+                                      <small>{item.measurement}</small> x {item.quantity}
+                                    </CTableDataCell>
+                                    <CTableDataCell>${item.price * item.quantity}</CTableDataCell>
+                                  </CTableRow>
+                                ))}
+                              </CTableBody>
+                            </CTable>
+                            {/* <div className="mt-2 pt-2 border-top"> */}
+                            <CButton
+                              onClick={() => setConfirmed(order.id)}
+                              color="primary"
+                              className="float-end"
+                            >
+                              {' '}
+                              <CIcon icon={cilCheckAlt} className="me-2" />
+                              Accept Order
+                            </CButton>
+                            {/* </div> */}
+                          </CCardText>
+                        </CCardBody>
+                      </CCard>
+                    ))}
+                  </>
+                </CCol>
               </CRow>
             </CCardBody>
           </CCard>
@@ -254,96 +251,91 @@ const Dashboard = () => {
           <CCard className="mb-4">
             <CCardBody>
               <CRow>
-                <CCol sm={7}>
+                <CCol sm={7} style={{ padding: '1rem' }}>
                   <h4 id="traffic" className="card-title mb-0">
                     Confirmed Orders
                   </h4>
                 </CCol>
                 <CCol sm={5} className="d-none d-md-block"></CCol>
               </CRow>
-              <CRow>
-                <>
-                  {orderConfirmed.map((order, index) => (
-                    <CToaster key={index} md={6}>
-                      <CToast autohide={false} visible={true}>
-                        <CToastHeader>
-                          <CCol xs={1.5}>
-                            <CIcon icon={cilFastfood} className="me-2" size="xl" />
-                          </CCol>
-                          <CCol xs={6}>
-                            <strong style={{ padding: '.5rem' }}>Order No. {order.id}</strong>{' '}
-                            {'     '}
-                            <CBadge color={order.type === 'off-the-shelf' ? 'warning' : 'info'}>
-                              {order.type}
-                            </CBadge>
-                          </CCol>
-                          <CCol xs={5}>
-                            <div className="float-end">
-                              {order.timepoint.date} <small>{order.timepoint.time}</small>
-                            </div>
-                          </CCol>
-                        </CToastHeader>
-                        <CToastBody>
-                          <CTable borderless caption="top">
-                            <CTableCaption>
-                              <div className="text-medium-emphasis">
-                                {order.customer.name} {order.customer.contact}
-                                <CButton
-                                  color="dark"
-                                  variant="ghost"
-                                  size="sm"
-                                  className="float-end"
-                                >
-                                  <CIcon icon={cilChatBubble} className="me-2" />
-                                  Chat
-                                </CButton>
-                              </div>{' '}
-                            </CTableCaption>
-                            <CTableHead>
-                              <CTableRow>
-                                <CTableHeaderCell scope="col"></CTableHeaderCell>
-                                <CTableHeaderCell scope="col"></CTableHeaderCell>
-                                <CTableHeaderCell
-                                  scope="col"
-                                  className="text-center"
-                                ></CTableHeaderCell>
-                                <CTableHeaderCell scope="col"></CTableHeaderCell>
-                              </CTableRow>
-                            </CTableHead>
-                            <CTableBody>
-                              {order.item.map((item, index) => (
-                                <CTableRow v-for="item in order" key={index}>
-                                  <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                                  <CTableDataCell scope="row">{item.name}</CTableDataCell>
-                                  <CTableDataCell className="text-center">
-                                    <small>{item.measurement}</small> x {item.quantity}
-                                  </CTableDataCell>
-                                  <CTableDataCell>${item.price * item.quantity}</CTableDataCell>
-                                </CTableRow>
-                              ))}
-                            </CTableBody>
-                          </CTable>
-                          <div className="mt-2 pt-2 border-top">
-                            <CButton
-                              style={{ margin: '0', padding: '0', backgroundColor: 'none' }}
-                              onClick={() => setPurchased(order.id)}
-                            >
-                              <CToastClose
-                                component={CButton}
-                                color="success"
-                                size="sm"
-                                className="ms-1"
-                              >
-                                <CIcon icon={cilMoney} className="me-2" />
-                                Purchased = ${order.total}
-                              </CToastClose>
-                            </CButton>
+              <CRow xs={{ cols: 2, gutter: 6 }} md={{ cols: 1 }}>
+                <CCol xs>
+                  <>
+                    {orderConfirmed.map((order, index) => (
+                      <CCard
+                        key={index}
+                        textColor="success"
+                        className={`mb-3 border-top-success border-top-3`}
+                      >
+                        <CCardHeader>
+                          <CIcon icon={cilFastfood} className="me-2" size="xl" />
+                          <strong style={{ padding: '.5rem' }}>Order No. {order.id}</strong>{' '}
+                          {'     '}
+                          <CBadge color={order.type === 'off-the-shelf' ? 'warning' : 'info'}>
+                            {order.type}
+                          </CBadge>
+                          <div className="float-end">
+                            {order.timepoint.date} <small>{order.timepoint.time}</small>
                           </div>
-                        </CToastBody>
-                      </CToast>
-                    </CToaster>
-                  ))}
-                </>
+                        </CCardHeader>
+                        <CCardBody>
+                          <CCardText>
+                            <CTable borderless caption="top">
+                              <CTableCaption>
+                                <div className="text-medium-emphasis">
+                                  {order.customer.name} {order.customer.contact}
+                                  <CButton
+                                    color="dark"
+                                    variant="ghost"
+                                    size="sm"
+                                    className="float-end"
+                                  >
+                                    <CIcon icon={cilChatBubble} className="me-2" />
+                                    Chat
+                                  </CButton>
+                                </div>{' '}
+                              </CTableCaption>
+                              <CTableHead>
+                                <CTableRow>
+                                  <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                  <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                  <CTableHeaderCell
+                                    scope="col"
+                                    className="text-center"
+                                  ></CTableHeaderCell>
+                                  <CTableHeaderCell scope="col"></CTableHeaderCell>
+                                </CTableRow>
+                              </CTableHead>
+                              <CTableBody>
+                                {order.item.map((item, index) => (
+                                  <CTableRow v-for="item in order" key={index}>
+                                    <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+                                    <CTableDataCell scope="row">{item.name}</CTableDataCell>
+                                    <CTableDataCell className="text-center">
+                                      <small>{item.measurement}</small> x {item.quantity}
+                                    </CTableDataCell>
+                                    <CTableDataCell>${item.price * item.quantity}</CTableDataCell>
+                                  </CTableRow>
+                                ))}
+                              </CTableBody>
+                            </CTable>
+                            {/* <div className="mt-2 pt-2 border-top"> */}
+                            <CButton
+                              onClick={() => setPurchased(order.id)}
+                              color="success"
+                              className="float-end"
+                            >
+                              {' '}
+                              <CIcon icon={cilMoney} className="me-2" />
+                              Purchased = ${order.total}
+                            </CButton>
+                            {/* </div> */}
+                          </CCardText>
+                        </CCardBody>
+                      </CCard>
+                    ))}
+                  </>
+                </CCol>
               </CRow>
             </CCardBody>
           </CCard>

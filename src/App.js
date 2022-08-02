@@ -15,7 +15,6 @@ class App extends Component {
   render() {
     return (
       <HashRouter>
-        <h6>Welcome to EasyAsPie Dashboard</h6>
         <Suspense fallback={loading}>
           <Routes>
             <Route path="*" name="Home" element={<DefaultLayout />} />

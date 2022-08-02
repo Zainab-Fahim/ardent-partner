@@ -1,7 +1,0 @@
-{
-  "projects": {
-    "default": "ardent-production-partner",
-    "staging": "ardent-staging-partner"
-  },
-  "targets": {}
-}

@@ -1,9 +1,9 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import App from './App'
+import AppFooter from '../src/components/AppFooter'
 
 test('renders dashboard', () => {
-  render(<App />)
-  const h1Element = screen.getByText(/Welcome to EasyAsPie Dashboard/i)
-  expect(h1Element).toBeInTheDocument()
+  render(<AppFooter />)
+  const productName = screen.getByText(/Zainab-Fahim/i)
+  expect(productName).toBeInTheDocument()
 })
