@@ -7,8 +7,8 @@ On one hand the chatbot intelligently communicates with your customers, answerin
 
 The application on the frontend is built using React.js which uses the CoreUI library to construct the dashboard, while integrating many Firebase products such as Firestore (database), Hosting (deployment), and Extensions (Twilio). Twilio (which is used to build the chatbot) itself is an incorporation of many services such as Autopilot (NLP), Functions and WhatsApp messaging API. Lastly the application also has a CI/CD pipeline which is handled by GitHub actions.
 
-- [Watch Project Pitch](https://www.youtube.com/watch?v=d_CuzcwTs9U&t=10s)
-- [Watch Project Demo](https://www.youtube.com/watch?v=gLxaxjGmtgs&t=36s)
+- [Watch Project Pitch](https://youtu.be/d_CuzcwTs9U)
+- [Watch Project Demo](https://youtu.be/gLxaxjGmtgs)
 
 > Note: The following installation focuses on running the frontend of the application. Click [here](https://github.com/Zainab-Fahim/ardent-partner/tree/main/ardent-chat-bot#readme) to checkout the process to run the chatbot.
 
